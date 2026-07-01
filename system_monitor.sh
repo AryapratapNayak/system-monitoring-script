@@ -9,3 +9,7 @@ echo "Hostname : $(hostname)"
 echo "Current User : $(whoami)"
 echo "Date : $(date)"
 echo "Uptime : $(uptime -p)"
+
+echo
+echo "========== Disk Usage =========="
+df -h /
