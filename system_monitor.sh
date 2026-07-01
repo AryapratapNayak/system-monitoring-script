@@ -30,4 +30,20 @@ else
     echo "Disk usage is within the safe limit."
 fi
 
-#Monitoring memory usage
+
+# Monitoring memory usage
+echo
+echo "========== Memory Usage =========="
+
+MEMORY_THRESHOLD=80
+
+memory_usage=$(free | awk '/Mem/ {printf("%.0f"), $3/$2 * 100}')
+
+echo "Current Memory Usage : ${memory_usage}%"
+
+if [ "$memory_usage" -gt "$MEMORY_THRESHOLD" ]
+then
+    echo "ALERT: Memory usage has exceeded ${MEMORY_THRESHOLD}%!"
+else
+    echo "Memory usage is within the safe limit."
+fi
