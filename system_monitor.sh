@@ -47,3 +47,15 @@ then
 else
     echo "Memory usage is within the safe limit."
 fi
+
+#Displaying top CPU-consuming processes
+echo 
+echo "========== Top CPU processes =========="
+
+ps -eo pid,user,comm,%cpu --sort=%cpu | head
+
+#Displaying top memory-consuming processes
+echo
+echo "========== Top Memory Processes =========="
+
+ps -eo pid,user,comm,%mem --sort=-%mem | head
