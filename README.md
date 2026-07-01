@@ -136,7 +136,6 @@ Memory Usage : 14%
 Monitoring completed successfully.
 ```
 
-> **Note:** You can replace the above sample with a screenshot of the script execution after uploading one to the repository.
 
 ---
 
