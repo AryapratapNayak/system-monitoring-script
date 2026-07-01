@@ -189,8 +189,7 @@ Through this project, I gained practical experience with:
 
 DevOps Enthusiast | Linux | Shell Scripting | Git | AWS
 
+GitHub: https://github.com/AryapratapNayak
+
 ---
 
-## License
-
-This project was developed for learning purposes as part of a DevOps Capstone Project.
