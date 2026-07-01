@@ -19,7 +19,7 @@ echo "Uptime : $(uptime -p)"
 echo
 echo "========== Disk Usage =========="
 
-DISK_THRESHOLD=40
+DISK_THRESHOLD=80
 
 disk_usage=$(df / | awk 'NR==2 {print $5}' | sed 's/%//')
 
@@ -27,10 +27,12 @@ echo "Current Disk Usage : ${disk_usage}%"
 
 if [ "$disk_usage" -gt "$DISK_THRESHOLD" ]
 then
-    echo "ALERT: Disk usage has exceeded ${DISK_THRESHOLD}%!"
+    echo "STATUS:ALERT
+Disk usage has exceeded ${DISK_THRESHOLD}%!"
     echo "$(date) - ALERT: Disk usage is ${disk_usage}%." >> "$LOG_FILE"
 else
-    echo "Disk usage is within the safe limit."
+    echo "STATUS : OK
+Disk usage is within the safe limit."
 fi
 
 
@@ -38,7 +40,7 @@ fi
 echo
 echo "========== Memory Usage =========="
 
-MEMORY_THRESHOLD=5
+MEMORY_THRESHOLD=80
 
 memory_usage=$(free | awk '/Mem/ {printf("%.0f"), $3/$2 * 100}')
 
@@ -46,20 +48,34 @@ echo "Current Memory Usage : ${memory_usage}%"
 
 if [ "$memory_usage" -gt "$MEMORY_THRESHOLD" ]
 then
-    echo "ALERT: Memory usage has exceeded ${MEMORY_THRESHOLD}%!"
+    echo "STATUS:ALERT
+Memory usage has exceeded ${MEMORY_THRESHOLD}%!"
     echo "$(date) - ALERT: Memory usage is ${memory_usage}%." >> "$LOG_FILE"
 else
-    echo "Memory usage is within the safe limit."
+    echo "STATUS:OK 
+Memory usage is within the safe limit."
 fi
 
 #Displaying top CPU-consuming processes
 echo 
 echo "========== Top CPU processes =========="
 
-ps -eo pid,user,comm,%cpu --sort=%cpu | head
+ps -eo pid,user,comm,%cpu --sort=-%cpu | head
 
 #Displaying top memory-consuming processes
 echo
 echo "========== Top Memory Processes =========="
 
 ps -eo pid,user,comm,%mem --sort=-%mem | head
+
+
+echo
+echo "======================================"
+echo "      SYSTEM HEALTH SUMMARY"
+echo "======================================"
+
+echo "Disk Usage   : ${disk_usage}%"
+echo "Memory Usage : ${memory_usage}%"
+
+echo
+echo "End of monitoring report"
